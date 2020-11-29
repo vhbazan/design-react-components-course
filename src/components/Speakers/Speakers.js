@@ -14,10 +14,14 @@ const Speakers = () => {
       name: 'Eugene Chuvyrov',
     },
   ];
-  return (
-    <div>
-          <img src={`/images/speakers.png`} alt=''></img>
-     </div>
-  );
+
+return (
+  <div>
+  {speakers.map(( {name, imageSrc}) => {
+      return <img src={`images/${imageSrc}.png`} alt={name} key={imageSrc}></img>
+    }
+  )};
+  </div>
+)
 };
 export default Speakers;
