@@ -1,19 +1,9 @@
 import React from 'react';
-const Speakers = () => {
-  const speakers = [
-    {
-      imageSrc: 'speaker-component-1124',
-      name: 'Douglas Crockford',
-    },
-    {
-      imageSrc: 'speaker-component-1530',
-      name: 'Tamara Baker',
-    },
-    {
-      imageSrc: 'speaker-component-10803',
-      name: 'Eugene Chuvyrov',
-    },
-  ];
+import { Component } from 'react';
+import withData from './withData';
+
+const Speakers = ({speakers}) => {
+  
 
 return (
   <div>
@@ -24,4 +14,5 @@ return (
   </div>
 )
 };
-export default Speakers;
+
+export default withData(Speakers);
