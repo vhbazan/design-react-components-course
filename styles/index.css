@@ -21,4 +21,36 @@
     margin-right: 5px;
   }
 
+  .heartredbutton {
+    background-image: url('/heart-red.png');
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    float: right;
+  }
+  
+  .heartdarkbutton {
+    background-image: url('/heart-dark.png');
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    float: right;
+  }
+  
+  .heartorangebutton {
+    background-image: url('/heart-orange.png');
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    float: right;
+  }
   
