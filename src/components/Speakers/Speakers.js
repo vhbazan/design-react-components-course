@@ -4,9 +4,8 @@ import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
 const Speakers = () => {
-const [searchQuery, setSearchQuery] = useState("");
-
-  const speakers = [
+  const [searchQuery, setSearchQuery] = useState("");
+  const speakersArray = [
     {
       imageSrc: 'speaker-component-1124',
       name: 'Douglas Crockford',
@@ -44,6 +43,25 @@ const [searchQuery, setSearchQuery] = useState("");
         'Eugene Chuvyrov is  a Senior Cloud Architect at Microsoft. He works directly with both startups and enterprises to enable their solutions in Microsoft cloud, and to make Azure better as a result of this work with partners.',
     }
   ];
+  const [speakers, setSpeakers] = useState(speakersArray);
+  
+  function onFavoriteToggleHandler(speaker) {
+    console.log('onFavoriteToggleHandler clicked , ' )
+    const updatedSpeaker = toggleSpeakerFavorite(speaker);
+    const speakerIndex = speakers.map((speakerRec) => speakerRec.id).indexOf(speaker.id);
+  
+    setSpeakers([
+      ...speakers.slice(0, speakerIndex), updatedSpeaker, ...speakers.slice(speakerIndex+1)
+    ])
+  }
+
+  function toggleSpeakerFavorite(speaker) {
+    return {
+      ...speaker,
+      isFavorite: !speaker.isFavorite
+    }
+  }
+
   return (
           
           <div>
@@ -57,7 +75,7 @@ const [searchQuery, setSearchQuery] = useState("");
                   return searchQuery.length === 0 ? true : targetString.includes(searchQuery.toLowerCase());
                 })
                 .map( (speaker) => (
-                <Speaker key={speaker.id} {...speaker}></Speaker>
+                <Speaker key={speaker.id} {...speaker} onFavoriteToggle={() => onFavoriteToggleHandler(speaker)}></Speaker>
               ))}
             </div>
           </div>

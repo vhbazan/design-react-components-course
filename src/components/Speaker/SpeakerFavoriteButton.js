@@ -1,7 +1,9 @@
-const SpeakerFavoriteButton = ({isFavorite}) => {
+const SpeakerFavoriteButton = ({isFavorite, onFavoriteToggle}) => {
+    
 
     return (
-        <div className={ isFavorite ? 'heartedbutton' : 'heartdarkbutton'}></div>
+        <div className={ isFavorite ? 'heartredbutton' : 'heartdarkbutton'}
+            onClick={onFavoriteToggle}></div>
     )
 };
 

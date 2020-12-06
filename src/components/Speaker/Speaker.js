@@ -1,7 +1,7 @@
 import SpeakerFavoriteButton from './SpeakerFavoriteButton';
 import SpeakerImage from './SpeakerImage';
 
-const Speaker = ({id, firstName, lastName, isFavorite, bio}) => {
+const Speaker = ({id, firstName, lastName, isFavorite, bio, onFavoriteToggle}) => {
     return (
         <div className="rounded overflow-hidden shadow-lg p-6" key={id}>
             <div className="grid grid-cols-4 mb-6">
@@ -10,7 +10,8 @@ const Speaker = ({id, firstName, lastName, isFavorite, bio}) => {
             </div>
             <div className="flex justify-end">
                {isFavorite} 
-                <SpeakerFavoriteButton isFavorite={isFavorite}></SpeakerFavoriteButton>
+                <SpeakerFavoriteButton isFavorite={isFavorite}
+                    onFavoriteToggle={onFavoriteToggle}></SpeakerFavoriteButton>
             </div>
             </div>
             <div className="mb-6">
