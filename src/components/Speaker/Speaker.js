@@ -9,6 +9,7 @@ const Speaker = ({id, firstName, lastName, isFavorite, bio}) => {
                 {`${firstName} ${lastName}`}
             </div>
             <div className="flex justify-end">
+               {isFavorite} 
                 <SpeakerFavoriteButton isFavorite={isFavorite}></SpeakerFavoriteButton>
             </div>
             </div>

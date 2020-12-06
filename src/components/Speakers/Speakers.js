@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
 const Speakers = () => {
+const [searchQuery, setSearchQuery] = useState("");
+
   const speakers = [
     {
       imageSrc: 'speaker-component-1124',
@@ -45,10 +47,17 @@ const Speakers = () => {
   return (
           
           <div>
-            <SpeakerSearchBar></SpeakerSearchBar>
+            <SpeakerSearchBar searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            ></SpeakerSearchBar>
             <div className="grid md:grid-cols-2 lg:grid-col-3 grid-cols-1 gap-12">
-              {speakers.map( (speaker) => (
-                <Speaker {...speaker}></Speaker>
+              {speakers
+                .filter((item)=> {
+                  const targetString = `${item.firstName} ${item.lastName}`.toLowerCase();
+                  return searchQuery.length === 0 ? true : targetString.includes(searchQuery.toLowerCase());
+                })
+                .map( (speaker) => (
+                <Speaker key={speaker.id} {...speaker}></Speaker>
               ))}
             </div>
           </div>
