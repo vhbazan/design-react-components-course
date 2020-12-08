@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
@@ -7,14 +7,35 @@ import axios from 'axios';
 const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
-  const [speakers, setSpeakers] = useState([]);
   const REQUEST_STATUS = {
     LOADING: 'loading',
     SUCCESS: 'success',
     ERROR: 'error'
   };
 
-  const [status, setStatus] = useState(REQUEST_STATUS.LOADING);
+  const reducer = (state, action) => {
+    console.log('type', action.type);
+    switch (action.type) {
+      case 'GET_ALL_SUCCESS':
+        return {
+          ...state,
+          speakers: action.speakers
+        };
+        break;
+      case 'UPDATE_STATUS':
+        return {
+          ...state,
+          status: action.status
+        }
+      break;
+      default:
+
+      break;
+    }
+    
+  };
+  const [{ speakers, status }, setSpeakers] = useReducer(reducer, []);
+
   const [error, setError] = useState({});
 
   useEffect(() => {
@@ -22,10 +43,19 @@ const Speakers = () => {
       try {
       const response = await axios.get('http://localhost:4000/speakers');
       //loading??? 
-      setSpeakers(response.data);
-      setStatus(REQUEST_STATUS.SUCCESS);
+      setSpeakers({
+        speakers: response.data,
+        type: 'GET_ALL_SUCCESS'
+      });
+      setSpeakers({
+        type: 'UPDATE_STATUS',
+        status: REQUEST_STATUS.SUCCESS
+      });
     } catch(e) {
-      setStatus(REQUEST_STATUS.ERROR);
+      setSpeakers({
+        type: 'UPDATE_STATUS',
+        status: REQUEST_STATUS.ERROR
+      });
       setError(e);
     }
     }
@@ -43,7 +73,10 @@ const Speakers = () => {
         ...speakers.slice(0, speakerIndex), updatedSpeaker, ...speakers.slice(speakerIndex+1)
       ]);
     } catch (e) {
-      setStatus(REQUEST_STATUS.ERROR);
+      setSpeakers({
+        type: 'UPDATE_STATUS',
+        status: REQUEST_STATUS.ERROR
+      });
       setError(e);
     }
     
