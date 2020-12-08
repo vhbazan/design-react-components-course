@@ -19,6 +19,7 @@ const Speakers = () => {
       case 'GET_ALL_SUCCESS':
         return {
           ...state,
+          status: REQUEST_STATUS.SUCCESS,
           speakers: action.speakers
         };
         break;
@@ -34,7 +35,10 @@ const Speakers = () => {
     }
     
   };
-  const [{ speakers, status }, setSpeakers] = useReducer(reducer, []);
+  const [{ speakers, status }, dispatch] = useReducer(reducer, {
+    status: REQUEST_STATUS.LOADING,
+    speakers: []
+  });
 
   const [error, setError] = useState({});
 
@@ -43,16 +47,12 @@ const Speakers = () => {
       try {
       const response = await axios.get('http://localhost:4000/speakers');
       //loading??? 
-      setSpeakers({
+      dispatch({
         speakers: response.data,
         type: 'GET_ALL_SUCCESS'
       });
-      setSpeakers({
-        type: 'UPDATE_STATUS',
-        status: REQUEST_STATUS.SUCCESS
-      });
     } catch(e) {
-      setSpeakers({
+      dispatch({
         type: 'UPDATE_STATUS',
         status: REQUEST_STATUS.ERROR
       });
@@ -69,11 +69,11 @@ const Speakers = () => {
     const speakerIndex = speakers.map((speakerRec) => speakerRec.id).indexOf(speaker.id);
     try {
       await axios.put(`http://localhost:4000/speakers/${speaker.id}`, updatedSpeaker)
-      setSpeakers([
+      dispatch([
         ...speakers.slice(0, speakerIndex), updatedSpeaker, ...speakers.slice(speakerIndex+1)
       ]);
     } catch (e) {
-      setSpeakers({
+      dispatch({
         type: 'UPDATE_STATUS',
         status: REQUEST_STATUS.ERROR
       });
