@@ -6,8 +6,8 @@ import Speaker from '../Speaker/Speaker';
 import {
   GET_ALL_FAILURE, GET_ALL_SUCCESS, PUT_FAILURE, PUT_SUCCESS
   } from '../../actions/request';
-
   import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
+import withRequest from '../HOCs/withRequest';
 
   const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -99,4 +99,4 @@ import {
    
 };
 
-export default Speakers;
+export default withRequest()(Speakers);
