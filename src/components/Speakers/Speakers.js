@@ -8,6 +8,7 @@ import {
   } from '../../actions/request';
 
   import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
+import withRequest from '../HOCs/withRequest';
 
   const Speakers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -99,4 +100,4 @@ import {
    
 };
 
-export default Speakers;
+export default withRequest()(Speakers);
