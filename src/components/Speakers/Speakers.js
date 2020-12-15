@@ -1,60 +1,19 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
-import {
-  GET_ALL_FAILURE, GET_ALL_SUCCESS, PUT_FAILURE, PUT_SUCCESS
-  } from '../../actions/request';
-  import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
+import { REQUEST_STATUS } from '../../reducers/reducers';
 import withRequest from '../HOCs/withRequest';
 
-  const Speakers = () => {
+  const Speakers = ({speakers, status, error, put }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  
-  const [{ records: speakers, status, error }, dispatch] = useReducer(requestReducer, {
-    status: REQUEST_STATUS.LOADING,
-    records: [],
-    error: null
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-      const response = await axios.get('http://localhost:4000/speakers');
-      //loading??? 
-      dispatch({
-        records: response.data,
-        type: GET_ALL_SUCCESS
-      });
-    } catch(e) {
-      dispatch({
-        type: GET_ALL_FAILURE,
-        error: e
-      });
-    }
-    }
-    fetchData();
-  }, [status]);
 
   
-  async function onFavoriteToggleHandler(speaker) {
-    console.log('onFavoriteToggleHandler clicked , ' )
-    const updatedSpeaker = toggleSpeakerFavorite(speaker);
-    const speakerIndex = speakers.map((speakerRec) => speakerRec.id).indexOf(speaker.id);
-    try {
-      await axios.put(`http://localhost:4000/speakers/${speaker.id}`, updatedSpeaker)
-      dispatch({
-        type: PUT_SUCCESS,
-        record: updatedSpeaker
-      });
-    } catch (e) {
-      dispatch({
-        type: PUT_FAILURE,
-        error: e
-      });
-    }
-    
+  async function onFavoriteToggleHandler(speakerRec) {
+    put({
+      ...speakerRec,
+      isFavorite: !speakerRec.isFavorite
+    })    
   }
 
   function toggleSpeakerFavorite(speaker) {
@@ -99,4 +58,4 @@ import withRequest from '../HOCs/withRequest';
    
 };
 
-export default withRequest()(Speakers);
+export default withRequest('http://locahost:4000', 'speakers')(Speakers);
