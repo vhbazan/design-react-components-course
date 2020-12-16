@@ -58,4 +58,4 @@ import withRequest from '../HOCs/withRequest';
    
 };
 
-export default withRequest('http://locahost:4000', 'speakers')(Speakers);
+export default withRequest('http://localhost:4000', 'speakers')(Speakers);
