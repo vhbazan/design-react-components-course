@@ -5,7 +5,7 @@ import Speaker from '../Speaker/Speaker';
 import { REQUEST_STATUS } from '../../reducers/reducers';
 import withRequest from '../HOCs/withRequest';
 
-  const Speakers = ({speakers, status, error, put }) => {
+  const Speakers = ({records: speakers, status, error, put }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   
