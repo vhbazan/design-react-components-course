@@ -3,7 +3,6 @@ import axios from 'axios';
 import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
 
 import { PUT_SUCCESS, PUT_FAILURE, GET_ALL_SUCCESS, GET_ALL_FAILURE } from '../../actions/request';
-import { route } from 'next/dist/next-server/server/router';
 
 const withRequest = (baseUrl, routeName) => (Component) => (props) => {
 
