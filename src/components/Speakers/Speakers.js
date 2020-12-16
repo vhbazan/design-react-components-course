@@ -5,7 +5,7 @@ import Speaker from '../Speaker/Speaker';
 import { REQUEST_STATUS } from '../../reducers/reducers';
 import withRequest from '../HOCs/withRequest';
 
-  const Speakers = ({records: speakers, status, error, put }) => {
+  const Speakers = ({records: speakers, status, error, put, bgColor }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   
@@ -29,7 +29,7 @@ import withRequest from '../HOCs/withRequest';
 
   return (
           
-          <div>
+          <div className={bgColor}>
             <SpeakerSearchBar searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             ></SpeakerSearchBar>
