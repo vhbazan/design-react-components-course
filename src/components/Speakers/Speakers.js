@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-
+import { compose } from 'recompose';
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
 import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
 import withRequest from '../HOCs/withRequest';
+import withSpecialMessage from '../HOCs/withSpecialMessage';
 
 
-const Speakers = ({records: speakers, status, error, put, bgColor }) => {
+const Speakers = ({records: speakers,
+                  status,
+                  error,
+                  put,
+                  bgColor,
+                specialMessage }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -36,6 +42,14 @@ const Speakers = ({records: speakers, status, error, put, bgColor }) => {
             <SpeakerSearchBar searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             ></SpeakerSearchBar>
+            {specialMessage && specialMessage.length > 0 && (
+              <div className="bg-orange-100 border-l-8 border-orange-500 text-orange-700 p-4 text-bold"
+                role="alert">
+                  <p className="font-bold">Spencial Message</p>
+                  <p> {specialMessage} </p>
+
+              </div>
+            )}
             {isLoading && <div>Loading ... </div> }
             {hasErrored && <div>
               Loading error ... Is the json-server running? 
@@ -61,4 +75,6 @@ const Speakers = ({records: speakers, status, error, put, bgColor }) => {
    
 };
 
-export default withRequest('http://localhost:4000', 'speakers')(Speakers);
+export default compose(
+  withRequest('http://localhost:4000', 'speakers'),
+  withSpecialMessage())(Speakers);
