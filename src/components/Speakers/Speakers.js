@@ -1,11 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { compose } from 'recompose';
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
-import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
-import withRequest from '../HOCs/withRequest';
-import withSpecialMessage from '../HOCs/withSpecialMessage';
+import { REQUEST_STATUS } from '../../reducers/reducers';
 import { DataContext, DataProvider } from '../../contexts/DataContext';
 
 
@@ -13,7 +10,7 @@ const SpeakersComponent = ({
                   bgColor,
                 }) => {
   const specialMessage = '';                  
-  const { speakers, status } = useContext(DataContext);
+  const { records: speakers, status, error, put } = useContext(DataContext);
 
   console.log('speakers', speakers);
   const [searchQuery, setSearchQuery] = useState("");
@@ -77,8 +74,10 @@ const SpeakersComponent = ({
 };
 
 const Speakers = (props) => {
+  const baseUrl = 'http://localhost:4000';
+  const routeName = 'speakers'
   return (
-    <DataProvider>
+    <DataProvider baseUrl={baseUrl} routeName={routeName}>
       <SpeakersComponent {...props}></SpeakersComponent>
     </DataProvider>
   )
