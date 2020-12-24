@@ -1,8 +1,8 @@
 import React, {  createContext } from 'react';
 
-const SpeakerContext = createContext();
+const SpeakersContext = createContext();
 
-const SpeakerProvider = ({children}) => {
+const SpeakersProvider = ({children}) => {
     const speakers = [
         {
           imageSrc: 'speaker-component-1124',
@@ -19,10 +19,10 @@ const SpeakerProvider = ({children}) => {
       ];
 
       return (
-        <SpeakerContext.Provider value={speakers}>
+        <SpeakersContext.Provider value={speakers}>
             {children}
-        </SpeakerContext.Provider>
+        </SpeakersContext.Provider>
       );
+};
 
-      export { SpeakerContext, SpeakerProvider};
-}
+export { SpeakersContext, SpeakersProvider};
