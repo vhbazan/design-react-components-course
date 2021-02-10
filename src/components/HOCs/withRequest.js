@@ -18,7 +18,7 @@ const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
         const fetchData = async () => {
           try {
           const response = await axios.get(`${baseUrl}/${routeName}`);
-          //loading??? 
+          console.log('response', response)
           dispatch({
             records: response.data,
             type: GET_ALL_SUCCESS
@@ -33,8 +33,26 @@ const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
         }
         fetchData();
       }, [baseUrl, routeName]);
-    const props = {
 
+    const props = {
+        records,
+        status,
+        error,
+        put:async (record) => {
+            try {
+                await axios.put(`${baseUrl}/${routeName}/${record.id}`, record);
+                dispatch({
+                    type: PUT_SUCCESS,
+                    record: record
+                    
+                })
+            } catch (e) {
+                dispatch({
+                    type: PUT_FAILURE,
+                    error: e
+                })
+            }
+        }
     }
     return <Component {...props}></Component> ;
 }
