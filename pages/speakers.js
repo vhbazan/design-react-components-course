@@ -5,7 +5,7 @@ import Layout from '../src/components/Layout/Layout';
 function Page() {
     return (
        <Layout>
-            <Speakers />
+            <Speakers/>
         </Layout> 
     )
 }

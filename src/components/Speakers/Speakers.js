@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 
-
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
-
-
-  import { REQUEST_STATUS } from '../../reducers/reducers';
+import { REQUEST_STATUS } from '../../reducers/reducers';
 import withRequest from '../HOCs/withRequest';
 
   const Speakers = ({records: speakers, status, error, put}) => {
@@ -17,7 +14,6 @@ import withRequest from '../HOCs/withRequest';
       ...speaker,
       isFavorite: !speaker.isFavorite
     })
-    
   }
 
   function toggleSpeakerFavorite(speaker) {
