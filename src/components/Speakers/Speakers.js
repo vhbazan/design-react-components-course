@@ -14,20 +14,13 @@ const SpeakersComponent = ({
 
   console.log('speakers', speakers);
   const [searchQuery, setSearchQuery] = useState("");
-
   
-  async function onFavoriteToggleHandler(speakerRec) {
+   
+  async function onFavoriteToggleHandler(speaker) {
     put({
-      ...speakerRec,
-      isFavorite: !speakerRec.isFavorite
-    })    
-  }
-
-  function toggleSpeakerFavorite(speaker) {
-    return {
       ...speaker,
       isFavorite: !speaker.isFavorite
-    }
+    })
   }
 
   const isLoading = status === REQUEST_STATUS.LOADING;
@@ -36,7 +29,7 @@ const SpeakersComponent = ({
 
   return (
           
-          <div className={bgColor}>
+          <div>
             <SpeakerSearchBar searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             ></SpeakerSearchBar>
