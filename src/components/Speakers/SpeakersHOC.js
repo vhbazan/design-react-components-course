@@ -44,7 +44,7 @@ const Speakers = ({records: speakers,
             {specialMessage && specialMessage.length > 0 && (
               <div className="bg-orange-100 border-l-8 border-orange-500 text-orange-700 p-4 text-bold"
                 role="alert">
-                  <p className="font-bold">Spencial Message</p>
+                  <p className="font-bold">Special Message</p>
                   <p> {specialMessage} </p>
 
               </div>
