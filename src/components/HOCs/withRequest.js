@@ -6,7 +6,7 @@ import { requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
 
   
 
-const withRequest = (baseUrl, routeName) => (Component) => () => {
+const withRequest = (baseUrl, routeName) => (Component) => (props) => {
 
 const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
     status: REQUEST_STATUS.LOADING,
@@ -34,11 +34,11 @@ const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
         fetchData();
       }, [baseUrl, routeName]);
 
-    const props = {
+    const propsLocal = {
         records,
         status,
         error,
-        put:async (record) => {
+        put: async (record) => {
             try {
                 await axios.put(`${baseUrl}/${routeName}/${record.id}`, record);
                 dispatch({
@@ -54,7 +54,7 @@ const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
             }
         }
     }
-    return <Component {...props}></Component> ;
+    return <Component {...propsLocal} {...props}></Component> ;
 }
 
 export default withRequest;

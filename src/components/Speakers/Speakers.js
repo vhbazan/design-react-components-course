@@ -29,7 +29,7 @@ const SpeakersComponent = ({
 
   return (
           
-          <div>
+          <div className={bgColor}>
             <SpeakerSearchBar searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             ></SpeakerSearchBar>

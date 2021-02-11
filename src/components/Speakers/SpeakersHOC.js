@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
-import {requestReducer, REQUEST_STATUS } from '../../reducers/reducers';
+import { REQUEST_STATUS } from '../../reducers/reducers';
 import withRequest from '../HOCs/withRequest';
 import withSpecialMessage from '../HOCs/withSpecialMessage';
 
