@@ -1,7 +1,6 @@
 
-import Speakers from '../src/components/Speakers/SpeakersRenderProps';
+import Speakers from '../src/components/Speakers/Speakers';
 import Layout from '../src/components/Layout/Layout';
-import SpeakersHOC from '../src/components/Speakers/SpeakersHOC';
 
 function Page() {
     return (

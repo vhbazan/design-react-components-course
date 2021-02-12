@@ -2,25 +2,27 @@ import React, { useState, useContext } from 'react';
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
+
 import { REQUEST_STATUS } from '../../reducers/reducers';
 import { DataContext, DataProvider } from '../../contexts/DataContext';
 
-
-const SpeakersComponent = ({
-                  bgColor,
-                }) => {
-  const specialMessage = '';                  
-  const { records: speakers, status, error, put } = useContext(DataContext);
-
-  console.log('speakers', speakers);
+const SpeakersComponent = ({bgColor}) => {
+  const specialMessage = '';
   const [searchQuery, setSearchQuery] = useState("");
+  const {speakers, status} = useContext(DataContext)
   
-   
-  async function onFavoriteToggleHandler(speaker) {
+  async function onFavoriteToggleHandler(speakerRec) {
     put({
+      ...speakerRec,
+      isFavorite: !speakerRec.isFavorite
+    })    
+  }
+
+  function toggleSpeakerFavorite(speaker) {
+    return {
       ...speaker,
       isFavorite: !speaker.isFavorite
-    })
+    }
   }
 
   const isLoading = status === REQUEST_STATUS.LOADING;
@@ -36,7 +38,7 @@ const SpeakersComponent = ({
             {specialMessage && specialMessage.length > 0 && (
               <div className="bg-orange-100 border-l-8 border-orange-500 text-orange-700 p-4 text-bold"
                 role="alert">
-                  <p className="font-bold">Spencial Message</p>
+                  <p className="font-bold">Special Message</p>
                   <p> {specialMessage} </p>
 
               </div>
@@ -67,13 +69,10 @@ const SpeakersComponent = ({
 };
 
 const Speakers = (props) => {
-  const baseUrl = 'http://localhost:4000';
-  const routeName = 'speakers'
   return (
-    <DataProvider baseUrl={baseUrl} routeName={routeName}>
-      <SpeakersComponent {...props}></SpeakersComponent>
+    <DataProvider>
+      <SpeakersComponent {...props }></SpeakersComponent>
     </DataProvider>
   )
 }
-
 export default Speakers;
