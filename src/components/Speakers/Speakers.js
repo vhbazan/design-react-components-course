@@ -9,7 +9,7 @@ import { DataContext, DataProvider } from '../../contexts/DataContext';
 const SpeakersComponent = ({bgColor}) => {
   const specialMessage = '';
   const [searchQuery, setSearchQuery] = useState("");
-  const {speakers, status} = useContext(DataContext)
+  const {records: speakers, status, error, put} = useContext(DataContext)
   
   async function onFavoriteToggleHandler(speakerRec) {
     put({
@@ -70,7 +70,7 @@ const SpeakersComponent = ({bgColor}) => {
 
 const Speakers = (props) => {
   return (
-    <DataProvider>
+    <DataProvider baseUrl="http://localhost:4000" routeName="speakers">
       <SpeakersComponent {...props }></SpeakersComponent>
     </DataProvider>
   )
