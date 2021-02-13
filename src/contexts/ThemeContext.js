@@ -1,11 +1,15 @@
 import React from 'react';
 import useTheme from '../hooks/useTheme';
 
+const THEMELIST = {
+  DARK: 'dark',
+  LIGHT: 'light'  
+}
+
 const ThemeContext = React.createContext();
 
-
-const ThemeProvider = ({children}) => {
-  const state = {};
+const ThemeProvider = ({children, startingTheme}) => {
+  const state = useTheme(startingTheme);
 
   return (
     <ThemeContext.Provider value={state}>
@@ -15,4 +19,4 @@ const ThemeProvider = ({children}) => {
 }
 
 
-export {ThemeContext};
+export {ThemeContext, ThemeProvider, THEMELIST};
