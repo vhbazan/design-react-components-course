@@ -21,7 +21,6 @@ import {
           status: REQUEST_STATUS.SUCCESS,
           records: action.records
         };
-        break;
         case GET_ALL_FAILURE:
         return {
             ...state,
@@ -40,17 +39,14 @@ import {
             ...records.slice(recordIndex + 1)
           ]
         }
-        break;
     case PUT_FAILURE:
         console.log('PUT FAILURE');
         return {
           ...state,
           error: action.error
         }
-        break;
       default:
         return state;
-      break;
     }
     
   };

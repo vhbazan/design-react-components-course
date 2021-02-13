@@ -1,15 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
+import { compose } from 'recompose';
 import SpeakerSearchBar from './SpeakerSearchBar';
 import Speaker from '../Speaker/Speaker';
 
-
 import { REQUEST_STATUS } from '../../reducers/reducers';
-import { DataContext, DataProvider } from '../../contexts/DataContext';
+import withRequest from '../HOCs/withRequest';
+import withSpecialMessage from '../HOCs/withSpecialMessage';
 
-const SpeakersComponent = ({bgColor}) => {
-  const specialMessage = '';
+const Speakers = ({records: speakers,
+                  status,
+                  error,
+                  put,
+                  bgColor,
+                specialMessage }) => {
+
   const [searchQuery, setSearchQuery] = useState("");
-  const {records: speakers, status, error, put} = useContext(DataContext)
+
   
   async function onFavoriteToggleHandler(speakerRec) {
     put({
@@ -68,11 +74,6 @@ const SpeakersComponent = ({bgColor}) => {
    
 };
 
-const Speakers = (props) => {
-  return (
-    <DataProvider baseUrl="http://localhost:4000" routeName="speakers">
-      <SpeakersComponent {...props }></SpeakersComponent>
-    </DataProvider>
-  )
-}
-export default Speakers;
+export default compose(
+  withRequest('http://localhost:4000', 'speakers'),
+  withSpecialMessage())(Speakers);
