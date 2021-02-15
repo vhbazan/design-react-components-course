@@ -1,7 +1,10 @@
 import SpeakerFavoriteButton from './SpeakerFavoriteButton';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 import SpeakerImage from './SpeakerImage';
+import React from 'react'
 
-const Speaker = ({id, firstName, lastName, isFavorite, bio, onFavoriteToggle}) => {
+
+const SpeakerComponent = ({id, firstName, lastName, isFavorite, bio, onFavoriteToggle}) => {
     return (
         <div className="rounded overflow-hidden shadow-lg p-6 bg-white" key={id}>
             <div className="grid grid-cols-4 mb-6">
@@ -23,5 +26,16 @@ const Speaker = ({id, firstName, lastName, isFavorite, bio, onFavoriteToggle}) =
         </div>
     )
 };
+
+
+const Speaker = React.memo((props) => {
+  return (
+    <ErrorBoundary errorUI={<div>Something went wrong in the Speaker Card</div>}>
+      <SpeakerComponent {...props}>
+      </SpeakerComponent>
+    </ErrorBoundary>
+  )
+})
+
 
 export default Speaker;
