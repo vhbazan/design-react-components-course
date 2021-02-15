@@ -6,7 +6,7 @@ import Speaker from '../Speaker/Speaker';
 import { REQUEST_STATUS } from '../../reducers/reducers';
 import { DataContext, DataProvider } from '../../contexts/DataContext';
 
-const SpeakersComponent = ({bgColor}) => {
+const SpeakersComponent = () => {
   const specialMessage = '';
   const [searchQuery, setSearchQuery] = useState("");
   const {records: speakers, status, error, put} = useContext(DataContext)
@@ -31,7 +31,7 @@ const SpeakersComponent = ({bgColor}) => {
 
   return (
           
-          <div className={bgColor}>
+          <div >
             <SpeakerSearchBar searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             ></SpeakerSearchBar>
