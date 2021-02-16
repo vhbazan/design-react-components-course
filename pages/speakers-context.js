@@ -6,8 +6,8 @@ const SpeakersComponent = () => {
 
   return (
     <div>
-      {speaker.map(({imgSrc, name}) =>{
-        return <img src={`/images/${imgSrc}`} alt={name} key={imgSrc} />
+      {speakers.map(({imgSrc, name}) =>{
+        return <img src={`/speakersimages/${imgSrc}`} alt={name} key={imgSrc} />
       } )}
     </div>
   );
