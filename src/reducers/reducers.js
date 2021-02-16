@@ -3,7 +3,8 @@ import {
     GET_ALL_SUCCESS,
     GET_ALL_FAILURE,
     PUT_SUCCESS,
-    PUT_FAILURE
+    PUT_FAILURE,
+    PUT
 } from '../actions/request';
 
   export const REQUEST_STATUS = {
@@ -27,12 +28,14 @@ import {
             status: REQUEST_STATUS.ERROR,
             error: action.error
         }
-      case PUT_SUCCESS:
+      case PUT:
+        console.log('PUT ');
           const { records } = state;
           const { record } = action;
           const recordIndex = records.map((rec) => rec.id ).indexOf(record.id);
         return {
           ...state,
+          prevRecords: state.records,
           records: [
             ...records.slice(0, recordIndex),
             record,
@@ -43,8 +46,12 @@ import {
         console.log('PUT FAILURE');
         return {
           ...state,
+          records: state.prevRecords,
           error: action.error
         }
+        case PUT_SUCCESS:
+          console.log('PUT SUCCESS');
+          return state;
       default:
         return state;
     }
