@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { requestReducer, REQUEST_STATUS } from '../reducers/reducers';
 import { GET_ALL_FAILURE, GET_ALL_SUCCESS, PUT_FAILURE, PUT_SUCCESS, PUT } from '../actions/request';
+import { store } from 'react-notifications-component';
 
 const useRequest = (baseUrl, routeName)=> {
   const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
@@ -61,6 +62,19 @@ const useRequest = (baseUrl, routeName)=> {
         dispatch({
           type: PUT_FAILURE,
           error: e
+        });
+        store.addNotification({
+          title: 'favorite Status Update Failure. Setting back ... ',
+          message: `Speaker: ${record.firstName} ${record.lastName}`,
+          type: 'danger',
+          insert: 'top',
+          container: 'top-right',
+          animationIn: ['animated', 'fadeIn'],
+          animationOut: ['animated', 'fadeOut'],
+          dismiss: {
+            duration: 3000,
+            onScreen: true
+          }
         })
       }
     }
