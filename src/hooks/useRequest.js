@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { requestReducer, REQUEST_STATUS } from '../reducers/reducers';
-import { GET_ALL_FAILURE, GET_ALL_SUCCESS, PUT_FAILURE, PUT_SUCCESS } from '../actions/request';
+import { GET_ALL_FAILURE, GET_ALL_SUCCESS, PUT_FAILURE, PUT_SUCCESS, PUT } from '../actions/request';
 
 const useRequest = (baseUrl, routeName)=> {
   const [{ records , status, error }, dispatch] = useReducer(requestReducer, {
@@ -47,6 +47,11 @@ const useRequest = (baseUrl, routeName)=> {
     error,
     put: async (record) => {
       try {
+        dispatch({
+          type: PUT,
+          record: record
+        });
+
         await axios.put(`${baseUrl}/${routeName}/${record.id}`, record);
         dispatch({
           type: PUT_SUCCESS,
